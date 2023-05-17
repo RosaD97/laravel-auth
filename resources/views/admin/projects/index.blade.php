@@ -5,6 +5,8 @@
     <h2>
         Lista projects
     </h2>
+    <a href="{{ route('admin.dashboard')}}">Clicca qui</a>
+
 
     <table class="table">
         <thead>
@@ -25,7 +27,7 @@
                 <td>{{ $project->start_date }}</td>
                 <td>{{ $project->slug}}</td>
                 <td>
-                    <a class="btn btn-primary" href="http://">Show</a>
+                    <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug)}}">Show</a>
                     <a class="btn btn-primary" href="http://">Edit</a>
                     <a class="btn btn-primary" href="http://">Show</a>
                 </td>

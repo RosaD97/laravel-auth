@@ -17,7 +17,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::all();
-
+        
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -48,9 +48,13 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(Project $project)
+    public function show(string $slug)
     {
-        //
+        // $project = Project::find($id);
+        $project = Project::where('slug', $slug)->first();
+
+        return view('admin.projects.show', compact('project'));
+
     }
 
     /**
