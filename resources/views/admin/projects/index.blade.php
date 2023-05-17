@@ -5,8 +5,13 @@
     <h2>
         Lista projects
     </h2>
-    <a href="{{ route('admin.dashboard')}}">Clicca qui</a>
+    <a href="{{ route('admin.projects.create')}}">Inserisci nuovo project</a>
 
+    @if(session('message'))
+    <div class="alert alert-success">
+      {{ session('message') }}
+    </div>
+    @endif
 
     <table class="table">
         <thead>
@@ -28,7 +33,7 @@
                 <td>{{ $project->slug}}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug)}}">Show</a>
-                    <a class="btn btn-primary" href="http://">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('admin.projects.edit',  $project->slug)}}">Edit</a>
                     <a class="btn btn-primary" href="http://">Show</a>
                 </td>
 
