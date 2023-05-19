@@ -34,7 +34,12 @@
                 <td>
                     <a class="btn btn-primary" href="{{ route('admin.projects.show', $project->slug)}}">Show</a>
                     <a class="btn btn-primary" href="{{ route('admin.projects.edit',  $project->slug)}}">Edit</a>
-                    <a class="btn btn-primary" href="http://">Show</a>
+                    <form action="{{ route('admin.projects.destroy', $project)}}" method="POST">
+                      @csrf
+
+                      @method('DELETE')
+                      <button class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
 
               </tr>
