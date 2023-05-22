@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProjectController extends Controller
@@ -44,8 +45,11 @@ class ProjectController extends Controller
         $data = $request->validated();
 
         $new_project = new Project();
-        $new_project->slug = Str::slug($data['title']);
         $new_project->fill($data);
+        $new_project->slug = Str::slug($data['title']);
+        if(isset($data['image'])){
+            $new_project->image = Storage::put('uploads', $data['image']);
+        }
         $new_project->save();
 
         return redirect()->route('admin.projects.index')->with('message', 'Nuovo project inserito con successo');
@@ -57,9 +61,9 @@ class ProjectController extends Controller
      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
-    public function show(string $slug)
+    public function show(Project $project)
     {
-        $project = Project::where('slug', $slug)->first();
+        // $project = Project::where('slug', $slug)->first();
 
         return view('admin.projects.show', compact('project'));
     }
@@ -84,8 +88,14 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project)
     {
-        $data = $request->all();
+        
+        $data = $request->validated();
         $project->slug = Str::slug($data['title']);
+
+        if(isset($data['image'])){
+            $project->image = Storage::put('uploads', $data['image']);
+        }
+
         $project->update($data);
 
         return redirect()->route('admin.projects.index')->with('message', 'Project aggiornato con successo');

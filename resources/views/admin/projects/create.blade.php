@@ -18,7 +18,7 @@
 <div>
     <a href="{{ route('admin.projects.index')}}">torna indietro</a>
 
-    <form action="{{ route('admin.projects.store')}}" method="POST">
+    <form action="{{ route('admin.projects.store')}}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -28,6 +28,17 @@
             <label for="text" class="form-label">Text</label>
             <textarea type="text" class="form-control" id="text" name="text">{{ old('text')}}</textarea>
           </div>
+
+          <div class="mb-3">
+            {{-- <div class="preview">
+              <img id="image-preview" @if($project->image) src="{{ asset('storage/'. $project->image)}}" alt="mini preview" @endif>
+            </div> --}}
+            
+            <label for="image" class="form-label">Image</label>
+            <input class="form-control" type="file" id="image" name="image">
+          </div>
+
+
           <div class="mb-3">
             <label for="start_date" class="form-label">Start Date</label>
             <input type="date" class="form-control" id="start_date" name="start_date">
